@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-cal2tg_v2.py - Google Calendar -> Telegram (서비스 계정 인증)
+sypuppy.py - Google Calendar -> Telegram (서비스 계정 인증)
 
 실행 모드
   test         텔레그램 연결 확인 메시지 발송

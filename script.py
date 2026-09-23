@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-cal2tg_v2.py - Google Calendar 일정을 텔레그램 톡방으로 쏘는 스크립트.
+sypuppy.py - Google Calendar 일정을 텔레그램 톡방으로 쏘는 스크립트.
 
 modes:
   test     : 텔레그램 연결 확인용 메시지 1회 발송

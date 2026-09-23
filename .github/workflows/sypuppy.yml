@@ -1,4 +1,4 @@
-﻿name: cal2tg
+name: cal2tg
 
 on:
   schedule:
@@ -39,9 +39,9 @@ jobs:
           STATE_FILE: state.json
         run: |
           if [ "${{ github.event.schedule }}" = "0 23 * * 0-4" ]; then
-            python cal2tg_v2.py digest
+            python sypuppy.py digest
           else
-            python cal2tg_v2.py run
+            python sypuppy.py run
           fi
 
       - uses: actions/cache/save@v4
