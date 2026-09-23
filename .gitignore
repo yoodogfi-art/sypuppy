@@ -1,0 +1,6 @@
+﻿service-account.json
+token.json
+credentials.json
+.venv/
+state.json
+*.pem
