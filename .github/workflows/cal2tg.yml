@@ -1,0 +1,51 @@
+﻿name: cal2tg
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+    - cron: '0 23 * * 0-4'
+  workflow_dispatch:
+
+concurrency:
+  group: cal2tg
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install --quiet google-api-python-client google-auth-httplib2 tzdata
+
+      - uses: actions/cache/restore@v4
+        with:
+          path: state.json
+          key: cal2tg-state-${{ github.run_id }}
+          restore-keys: cal2tg-state-
+
+      - name: run
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          CALENDAR_IDS: ${{ secrets.CALENDAR_IDS }}
+          TIMEZONE: Asia/Seoul
+          LEAD_MINUTES: '180'
+          STATE_FILE: state.json
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 23 * * 0-4" ]; then
+            python cal2tg_v2.py digest
+          else
+            python cal2tg_v2.py run
+          fi
+
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: state.json
+          key: cal2tg-state-${{ github.run_id }}
