@@ -41,7 +41,7 @@ jobs:
           if [ "${{ github.event.schedule }}" = "0 23 * * 0-4" ]; then
             python cal2tg_v2.py digest
           else
-            python cal2tg_v2.py run
+            python cal2tg_v2.py reminder
           fi
 
       - uses: actions/cache/save@v4
